@@ -7,9 +7,23 @@ const catchError = (err, req, res, next) => {
     const errorObj = {};
     keysErr.map((key) => {
       errorObj[key] = errors[key].message;
+      if (errors[key].kind === "enum") {
+        errorObj[key] = "invalid enum value";
+      }
     });
     err.statusCode = 400;
     err.message = errorObj;
+  }
+
+  if (err.kind === "ObjectId") {
+    err.statusCode === 400;
+    err.message = "Invalid ID";
+  }
+
+  if (err.code === 11000) {
+    err.statusCode = 400;
+    const field = Object.keys(err.keyValue)[0];
+    err.message = `${field} is already existed.`;
   }
 
   // 500: Internal server error

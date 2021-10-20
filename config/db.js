@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDB = () => {
   mongoose
-    .connect("mongodb://localhost:27017/tiktok")
+    .connect(process.env.DB_URI)
     .then(() => {
       console.log("Connect to DB successfully!");
     })
