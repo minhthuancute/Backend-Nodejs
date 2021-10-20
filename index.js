@@ -18,6 +18,10 @@ app.use(express.json());
 // const mailer = new EmailService();
 EmailService.init();
 
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/book", bookRoutes);
 app.use("/api/v1/category", categoryRoutes);
