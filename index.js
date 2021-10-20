@@ -33,7 +33,7 @@ app.use("/api/v1/stock", stockRoutes);
 // error middleware
 app.use(catchError);
 
-// connectDB();
+connectDB();
 app.listen(process.env.PORT || 3000, () => {
   console.log("server is listen on PORT: " + process.env.PORT);
 });
