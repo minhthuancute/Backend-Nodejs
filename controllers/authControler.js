@@ -29,6 +29,7 @@ exports.register = catchAsync(async (req, res) => {
 });
 
 exports.login = catchAsync(async (req, res) => {
+  // console.log("Err login count " + count++);
   const { email, password } = req.body;
   const existedEmail = await User.findOne({ email });
   if (!existedEmail) {
@@ -38,6 +39,8 @@ exports.login = catchAsync(async (req, res) => {
   if (!isMatch) {
     throw new ApiError(400, "email or password is incorrect");
   }
+  User.countErrorLogin = 0;
+
   // payload: public
   const token = jwt.sign(
     {
@@ -51,17 +54,11 @@ exports.login = catchAsync(async (req, res) => {
       expiresIn: "1d",
     }
   );
-  // if (existedEmail.hashNewPassword) {
-  //   return res.status(200).json({
-  //     success: true,
-  //     token,
-  //     hashNewPassword
-  //   });
-  // }
+
   // sau này decode token, để lấy email -> kiểm tra email có trong db hay kh
   res.status(200).json({
     success: true,
-    token,
+    token: `Bearer ${token}`,
   });
 });
 

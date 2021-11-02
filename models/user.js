@@ -36,6 +36,13 @@ const userSchema = new Schema(
       enum: [true, false],
       default: false,
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    countErrorLogin: {
+      type: Number,
+    },
   },
   {
     collection: "mt-users",
@@ -56,5 +63,9 @@ userSchema.pre("save", function (next) {
 
   next();
 });
+
+userSchema.statics.getUserByEmail = function (email = "") {
+  return this.findOne({ email });
+};
 
 module.exports = mongoose.model("user", userSchema);

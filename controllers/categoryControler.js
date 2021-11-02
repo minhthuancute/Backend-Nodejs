@@ -2,7 +2,9 @@ const catchAsync = require("../middlewares/catchAsync");
 const Category = require("../models/category");
 
 exports.getCategory = catchAsync(async (req, res) => {
-  const categories = await Category.find({});
+  // console.log(Category.print("David"));
+  // const categories = await Category.find({});
+  const categories = await Category.findCategoryByName("hello");
 
   res.status(200).json({
     success: true,

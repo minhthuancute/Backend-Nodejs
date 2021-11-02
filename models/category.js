@@ -16,4 +16,9 @@ const CategorySchema = new Schema(
   }
 );
 
+CategorySchema.statics.findCategoryByName = function (name) {
+  // return "hello" + name;
+  return this.find({ name });
+};
+
 module.exports = mongoose.model("Category", CategorySchema);
